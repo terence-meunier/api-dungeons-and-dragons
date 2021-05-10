@@ -24,4 +24,12 @@ public abstract class Stuff {
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
+
+    @Override
+    public String toString() {
+        return "Stuff{" +
+                "name='" + name + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                '}';
+    }
 }
