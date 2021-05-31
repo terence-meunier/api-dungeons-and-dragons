@@ -8,30 +8,48 @@ public class App {
 
         // Menu
         Menu menu = new Menu();
+        menu.initGame();
 
         // Gson Object
         Gson gson = new Gson();
 
         // Cors Origin allow access
-        before("/demo", (req, res) -> res.header("Access-Control-Allow-Origin", "*"));
+        before("/*", (req, res) -> res.header("Access-Control-Allow-Origin", "*"));
 
-        // Get Player
-        get("/demo", "application/json", (req, res) -> {
-            if (req.queryParams("action") != null) {
-                if (req.queryParams("action").equals("go")) {
-                    menu.launchRound();
-                }
-                if (req.queryParams("action").equals("fight")) {
-                    menu.fight();
-                }
-                if (req.queryParams("action").equals("drop")) {
-                    menu.dropItem();
-                }
-                return menu.getDatas();
-            } else {
-                menu.initGame();
-                return menu.getDatas();
-            }
+        // Get player
+        get("/demo/player", (req, res) -> {
+            return menu.getPlayer();
         }, gson::toJson);
+
+        // Get board and position
+        get("demo/game", (req, res) -> {
+            return menu.getBoard();
+        }, gson::toJson);
+
+        // Get position
+        get("demo/position", (req, res) -> {
+            return menu.getPosition();
+        }, gson::toJson);
+
+        // Launch round
+        get("/demo/go", (req, res) -> {
+            menu.launchRound();
+            res.redirect("/demo");
+            return null;
+        });
+
+        // Fight
+        get("/demo/fight", (req, res) -> {
+            menu.fight();
+            res.redirect("/demo");
+            return null;
+        });
+
+        // drop item
+        get("/demo/drop", (req, res) -> {
+            menu.dropItem();
+            res.redirect("/demo");
+            return null;
+        });
     }
 }

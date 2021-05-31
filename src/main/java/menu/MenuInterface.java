@@ -1,10 +1,15 @@
 package menu;
 
-import Game.Game;
+import characters.Character;
+import Game.Location;
+
+import java.util.List;
 
 public interface MenuInterface {
     void launchRound();
-    Object[] getDatas();
+    Character getPlayer();
+    List<Location> getBoard();
+    int getPosition();
     void initGame();
     void fight();
     void dropItem();

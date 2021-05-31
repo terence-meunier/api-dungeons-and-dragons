@@ -1,8 +1,12 @@
 package menu;
 
 import Game.Game;
+import characters.Character;
 import characters.Ennemy;
 import stuffs.Potion;
+import Game.Location;
+
+import java.util.List;
 
 public class Menu implements MenuInterface {
 
@@ -12,9 +16,16 @@ public class Menu implements MenuInterface {
         this.game = new Game();
     }
 
-    public Object[] getDatas() {
-        // Recupère les données de game
-        return new Object[]{game.getPlayer(), game.getBoard(), game.getPosition()};
+    public Character getPlayer() {
+        return game.getPlayer();
+    }
+
+    public List<Location> getBoard() {
+        return game.getBoard();
+    }
+
+    public int getPosition() {
+        return game.getPosition();
     }
 
     public void launchRound() {
