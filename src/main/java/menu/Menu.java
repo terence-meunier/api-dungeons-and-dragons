@@ -1,11 +1,10 @@
 package menu;
 
 import Game.Game;
-import characters.Character;
 import characters.Ennemy;
 import stuffs.Potion;
-import Game.Location;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Menu implements MenuInterface {
@@ -16,16 +15,11 @@ public class Menu implements MenuInterface {
         this.game = new Game();
     }
 
-    public Character getPlayer() {
-        return game.getPlayer();
-    }
-
-    public List<Location> getBoard() {
-        return game.getBoard();
-    }
-
-    public int getPosition() {
-        return game.getPosition();
+    public List<Object> getDatas() {
+        List<Object> datas = new ArrayList<>();
+        datas.add(game.getPlayer());
+        datas.add(game.getBoard());
+        return datas;
     }
 
     public void launchRound() {
@@ -35,18 +29,11 @@ public class Menu implements MenuInterface {
 
     public void initGame() {
         // Mets le joueur à la position 0
-        game.setPosition(0);
+        game.reset();
+        game.getPlayer().setPosition(0);
+    }
+
+    public void reset() {
         game.getPlayer().reset();
-    }
-
-    public void fight() {
-        // Combat
-        Ennemy ennemy = (Ennemy) game.getBoard().get(game.getPosition());
-        game.getPlayer().takeDamages(ennemy.getAtk());
-    }
-
-    public void dropItem() {
-        Potion potion = (Potion) game.getBoard().get(game.getPosition());
-        game.getPlayer().drinkPotion(potion.getLife());
     }
 }

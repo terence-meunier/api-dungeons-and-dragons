@@ -16,40 +16,16 @@ public class App {
         // Cors Origin allow access
         before("/*", (req, res) -> res.header("Access-Control-Allow-Origin", "*"));
 
-        // Get player
-        get("/demo/player", (req, res) -> {
-            return menu.getPlayer();
-        }, gson::toJson);
-
-        // Get board and position
-        get("demo/game", (req, res) -> {
-            return menu.getBoard();
-        }, gson::toJson);
-
-        // Get position
-        get("demo/position", (req, res) -> {
-            return menu.getPosition();
-        }, gson::toJson);
-
         // Launch round
         get("/demo/go", (req, res) -> {
             menu.launchRound();
-            res.redirect("/demo");
-            return null;
-        });
+            return menu.getDatas();
+        }, gson::toJson);
 
-        // Fight
-        get("/demo/fight", (req, res) -> {
-            menu.fight();
-            res.redirect("/demo");
-            return null;
-        });
-
-        // drop item
-        get("/demo/drop", (req, res) -> {
-            menu.dropItem();
-            res.redirect("/demo");
-            return null;
-        });
+        get("/demo/reset", (req, res) -> {
+            menu.initGame();
+            menu.reset();
+            return menu.getDatas();
+        }, gson::toJson);
     }
 }

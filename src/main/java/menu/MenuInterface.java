@@ -7,10 +7,7 @@ import java.util.List;
 
 public interface MenuInterface {
     void launchRound();
-    Character getPlayer();
-    List<Location> getBoard();
-    int getPosition();
+    List<Object> getDatas();
     void initGame();
-    void fight();
-    void dropItem();
+    void reset();
 }

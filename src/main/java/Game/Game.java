@@ -10,27 +10,37 @@ import java.util.List;
 public class Game {
     private Warrior player;
     private List<Location> board;
-    private int position;
 
-    public Game() {
-        this.position = 0;
-        this.player = new Warrior("Conan", 3, 8, "/img/warrior.png");
-        this.board = new ArrayList<>();
-        for (int i=0; i<10; i++) {
+    private void buildBoard() {
+        for (int i=0; i<30; i++) {
             if (i % 2 == 0) {
                 board.add(new Ennemy("Gobelin", 4, 2, "/img/gobelin.png"));
+            } else if (i % 3 == 0) {
+                board.add(new Ennemy("Sorcier", 6, 4, "/img/sorcier.png"));
             } else {
                 board.add(new Potion("Potion standard", "/img/potion-std.jpg", 2));
             }
         }
     }
 
+    public Game() {
+        this.player = new Warrior("Conan", 8, 3, "/img/warrior.png");
+        this.board = new ArrayList<>();
+        this.buildBoard();
+    }
+
     public void run() {
-        if (position < 9) {
-            position++;
+        if (player.getPosition() < 9) {
+            player.setPosition(player.getPosition() + 1);
         } else {
-            position = 0;
+            player.setPosition(0);
         }
+        board.get(player.getPosition()).interaction(player);
+    }
+
+    public void reset() {
+        board.clear();
+        this.buildBoard();
     }
 
     public Warrior getPlayer() {
@@ -49,11 +59,4 @@ public class Game {
         this.board = board;
     }
 
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
 }

@@ -5,12 +5,14 @@ public abstract class Character {
     private int life;
     private int atk;
     private String imgUrl;
+    private int position;
 
     public Character(String name, int life, int atk, String imgUrl) {
         this.name = name;
         this.life = life;
         this.atk = atk;
         this.imgUrl = imgUrl;
+        this.position = 0;
     }
 
     public void takeDamages(int damages) {
@@ -20,7 +22,8 @@ public abstract class Character {
     public void drinkPotion(int life) { this.life += life; }
 
     public void reset() {
-        this.life = 5;
+        this.position = 0;
+        this.life = 8;
     }
 
     public String getName() {
@@ -45,6 +48,22 @@ public abstract class Character {
 
     public void setAtk(int atk) {
         this.atk = atk;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     @Override
